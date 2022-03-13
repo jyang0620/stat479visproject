@@ -17,10 +17,10 @@ ds_salfix = ds_sal %>%
   separate(Location, c('City','State'),sep = ', ')
 ds_salfix[127,]$City = 'Los Angeles'
 ds_salfix[127,]$State = 'CA'
-ds_salfix$cost.of.living = NA #empty column
 
 # Filtering columns to our desired variables
 ds_salfix = ds_salfix[,c(1:3,5:8,13:14,19:21)]
+ds_salfix$cost.of.living = NA #empty column
 
 # Appending Cost of Living onto dataframe
 for(i in seq(length(ds_salfix$City))){
@@ -28,10 +28,11 @@ for(i in seq(length(ds_salfix$City))){
     ix = which(costoliv$City == ds_salfix[i,]$City)
     for (j in ix){
       if(ds_salfix[i,]$State == costoliv[j,]$State){
-        print(i)
-        print(ds_salfix[i,]$City)
-        print(j)
-        print(costoliv[j,]$State)
+        # print(i)
+        # print(ds_salfix[i,]$City)
+        # print(j)
+        # print(costoliv[j,]$State)
+        # print(ds_salfix[i,]$cost.of.living)
         ds_salfix[i,]$cost.of.living = costoliv[j,]$`Cost of Living Index`
       }
     }
