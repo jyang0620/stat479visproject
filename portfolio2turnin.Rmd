@@ -122,13 +122,12 @@ for(i in seq(length(ds_salfix$City))){
 missingcities %>%
   unique()
 
-cutdata = length(missingcities %>%
-  unique())/length(ds_salfix$City)
+cutdata = length(missingcities)/length(ds_salfix$City)
 
 cutdata*100
 ```
 
-As mentioned in the Data section, a lot of suburbs of metropolitan areas are missing from the cost of living data set, with the large ones being from the SF Bay Area, as well as in DC, New York, Philadelphia, Boston and Seattle, or areas involving big tech, resulting in our cut data of ~45%. Thus it provides a need way to account for these and rectify this issue.
+As mentioned in the Data section, a lot of suburbs of metropolitan areas are missing from the cost of living data set, with the large ones being from the SF Bay Area, as well as in DC, New York, Philadelphia, Boston and Seattle, or areas involving big tech, resulting in our cut data of ~44%. Thus it provides a need way to account for these and rectify this issue.
 
 ## Short Visualization 2 
 
