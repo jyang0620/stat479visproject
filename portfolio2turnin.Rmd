@@ -107,7 +107,28 @@ ds_salfix %>%
   )
 ```
 
-This short, non-dynamic visualization plots the relationship between average salary and cost of living. A simple observation is that most of the points a plopped under an average salary of $150,000 and cost of living index of 140, many California points are located near the cost of living index of 180 and our desired jobs that maximizes pay and minimizes the cost of living index are found within the state of Illinois (persumably Chicago)
+This short, non-dynamic visualization plots the relationship between average salary and cost of living. A simple observation is that most of the points a plopped under an average salary of $150,000 and cost of living index of 140, many California points are located near the cost of living index of 180 and our desired jobs that maximizes pay and minimizes the cost of living index are found within the state of Illinois (presumably all in Chicago)
+
+## Missing Data exploration
+
+```{r}
+missingcities = c()
+`%!in%` <- Negate(`%in%`)
+for(i in seq(length(ds_salfix$City))){
+  if (ds_salfix[i,]$City %!in% costoliv$City) {
+    missingcities = c(missingcities, ds_sal[i,]$Location)
+  }
+}
+missingcities %>%
+  unique()
+
+cutdata = length(missingcities %>%
+  unique())/length(ds_salfix$City)
+
+cutdata*100
+```
+
+As mentioned in the Data section, a lot of suburbs of metropolitan areas are missing from the cost of living data set, with the large ones being from the SF Bay Area, as well as in DC, New York, Philadelphia, Boston and Seattle, or areas involving big tech, resulting in our cut data of ~45%. Thus it provides a need way to account for these and rectify this issue.
 
 ## Short Visualization 2 
 
