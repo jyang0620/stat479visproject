@@ -148,3 +148,4 @@ app <- shinyApp(ui, server)
 app
 ```
 
+For this visualization, we created a shiny app which allows the user to select an x variable to compare average salaries. At this stage, we offer two choices: State and Sector. After choosing the desired x variable, the user will be able to view a box plot that shows the average salary of data science related jobs in thousands being compared across that variable.
