@@ -16,22 +16,22 @@ ds_salfix$cost.of.living = NA #empty column
 
 ds_salfix <- ds_salfix %>% 
   rename(Avg.Salary.K = 'Avg Salary(K)',
-         Job.Title = 'Job Title') %>% 
+         Job.Title = 'Job Title') %>% # Suggestion: Trim names of job titles (1st 10 characters or manually)
   mutate(Avg.Salary.K = as.numeric(Avg.Salary.K))
 
 # Boxplot
 box = function(salary, x){    
   # salary = filter(salary, selected == TRUE)
+  print(salary)
   ggplot(salary) +
-    geom_boxplot(aes(x = "Avg Salary(K)", 
-                     y = x,
-                     fill=x)) +
+    geom_boxplot(aes_string(x = "Avg.Salary.K", 
+                     y = x)) + #suggestion: reorder box plots
+                     # fill=x)) +
     theme(legend.position="bottom") + 
     labs(title= "Boxplot of Average Salaries", 
          x= "Average Salary (K)",
          y= x)
 }
-
 ui = fluidPage(
   titlePanel(h1("Average Salaries for Data Science Jobs", align = "center")),
   inputPanel(
