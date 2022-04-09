@@ -1,0 +1,87 @@
+---
+title: "Milestone Map"
+author: "David Young"
+date: "4/7/2022"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(sf)
+library(usmap)
+library(tidyverse)
+library(plotly)
+library(rnaturalearth)
+library(tidyverse)
+```
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+# Read in data
+data = read_csv("https://github.com/jyang0620/stat479visproject/raw/main/DSsalary.csv")
+data$state = data$State
+head(data)#
+# data set only includes information for 37 of the states
+# states = unique(data$State)
+# colnames(data)
+# col2 = read_sf("https://github.com/jyang0620/stat479visproject/raw/main/DSsalary.csv")
+# # #%>%
+# #   group_by(State) %>% 
+# #   summarise(
+# #     avg_salary = mean(as.numeric(`Avg Salary(K)`)),
+# #     cost_of_living = mean(as.numeric(cost.of.living)),
+# #     state = State
+# #   )
+# states <- ne_states("United States of America") %>%
+#       st_as_sf() %>%
+#       rmapshaper::ms_simplify() %>% # reduce size for easy plotting
+#       filter(!(name %in% c("Alaska", "Hawaii"))) %>%
+#       select(name, geometry, postal) %>%
+#       rename(state = name)
+# head(states)
+# states %>% left_join(col2, by = c("State", "postal"))
+```
+
+
+```{r data summarization}
+col = as.data.frame( data %>%
+  group_by(state) %>% 
+  summarise(
+    avg_salary = mean(`Avg Salary(K)`),
+    cost_of_living = mean(cost.of.living)
+  ))
+
+```
+```{r plotly map, echo = FALSE}
+# col_map <- col %>% ggplot()+
+#   geom_sf(aes(fill = cost_of_living))+
+#   scale_fill_continuous(
+#     low = "white", high = "dark green", name = "Cost of living Index", label = scales::comma
+#   )+
+#   labs(title = "Cost of Living by State")
+# col_map
+```
+
+
+```{r map}
+plot_usmap(data = col, values = "cost_of_living", color = "dark green") + 
+  scale_fill_continuous(
+    low = "white", high = "dark green", name = "Cost of living Index", label = scales::comma
+  )+
+  labs(title = "Cost of Living By State")+
+  theme(legend.position = "right")
+# plot_usmap(data = col, values = "avg_salary", color = "black") + 
+#   scale_fill_continuous(name = "Average Salary", type = "viridis") +
+#   labs(title = "Average Salary By State")+
+#   theme(legend.position = "right")
+```
+
