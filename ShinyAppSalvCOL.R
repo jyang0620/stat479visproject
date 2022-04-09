@@ -58,8 +58,27 @@ scatterplot = function(df) {
     style(hoveron = "fill")
 }
 
+text <- function(){
+  sidebarLayout(sidebarPanel = (""),
+                mainPanel = mainPanel (
+                  h3("Appendix"),
+                  h4("Graph axes:"),
+                  h6("Salary in thousands of dollars"),
+                  h6("Cost of Living Index: The cost of living normalized across the entire nation, where 100 is the national average. For example, as COL index of 120 means that place is 20% more expensive than average. It is similar to how ERA+ and OPS+ work in Baseball."),
+                  h4("Regions:"),
+                  h6("Midwest region: Iowa, Illinois, Indiana, Kansas, Michign, Minnesota, Missouri, North Dakota, Ohio, South Dakota and Wisconsin"),
+                  h6("Northeast region: Connecticut, Maine, New Hampshire, New Jersey, Pennsylvania, Rhode Island and Vermont"),
+                  h6("South region: Alabama, Arkansas, Deleware, Florida, Georgia, Kenntucky, Louisianna, Maryland, Mississippi, Oklahoma, South Carolina, Tennessee, Texas, Virginia, West Virginia and the District of Columbia"),
+                  h6("West region: Alaska, Arizona, Colorado, Hawaii, Idaho, Montana, New Mexico, Nevada, Oregon, Utah, Washington and Wyoming"),
+                  align = "left"
+                )
+  )
+}
+
 ui = fluidPage(
-  plotlyOutput("state_scatter")
+  plotlyOutput("state_scatter"),
+  text()
+  
 )
 
 server = function(input, output) {
