@@ -28,8 +28,4 @@ for (i in seq(length(ds_salfix$`Metro Area`))) {
   ds_salfix[i,]$cost.of.living = costoliv[j,]$`Cost of Living Index`
 }
 
-# Initial Overview plot looking at average salary vs cost of living
-ds_salfix %>%
-  drop_na(cost.of.living) %>%
-  ggplot() +
-  geom_point(aes(`Avg Salary(K)`, cost.of.living, col = State))
+write.csv(ds_salfix, 'DSsalary.csv')
