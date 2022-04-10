@@ -37,7 +37,7 @@ box <- function(df){
 ui <- fluidPage(
     titlePanel(h1("Average Salaries for Data Science Jobs", align = "center")),
     sidebarLayout(
-        sidebarPanel(checkboxGroupInput("industry", "Industry", industry, industry)),
+        sidebarPanel(checkboxGroupInput("industry", "Industry", industry, industry[1:12])),
         mainPanel(plotOutput("boxplot"))
     )
 )
