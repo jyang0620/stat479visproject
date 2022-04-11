@@ -73,6 +73,7 @@ col = as.data.frame( data %>%
 
 
 ```{r map}
+png(file = "COL_map.png")
 plot_usmap(data = col, values = "cost_of_living", color = "dark green") + 
   scale_fill_continuous(
     low = "white", high = "dark green", name = "Cost of living Index", label = scales::comma
@@ -83,5 +84,6 @@ plot_usmap(data = col, values = "cost_of_living", color = "dark green") +
 #   scale_fill_continuous(name = "Average Salary", type = "viridis") +
 #   labs(title = "Average Salary By State")+
 #   theme(legend.position = "right")
+dev.off()
 ```
 
