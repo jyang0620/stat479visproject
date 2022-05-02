@@ -1,11 +1,13 @@
 library(readr)
 library(tidyverse)
 library(ggplot2)
+library(ggthemes)
 library(forcats)
 library(lubridate)
 library(plotly)
 library(shiny)
 
+options(warn=-1)
 datasal = read_csv("DSsalary.csv")
 
 datasal = datasal %>%
@@ -15,6 +17,7 @@ datasal2 = data.frame(datasal)
 
 # rnaturalearth notes
 library(rnaturalearth)
+library(rnaturalearthhires)
 library(sf)
 states <- ne_states("United States of America") %>%
   st_as_sf() %>%
@@ -53,7 +56,12 @@ scatterplot = function(df) {
     labs(title = "Data Scientist Salary vs Cost of Living Index",
          x = "Salary ($K)",
          y = "Cost of Living Index",
-         color = "Region")
+         color = "Region") +
+    scale_color_tableau(
+      palette = "Tableau 10",
+      type = "regular",
+      direction = 1,
+    )
   ggplotly(p, tooltip = "text") %>%
     style(hoveron = "fill")
 }
