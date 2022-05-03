@@ -20,25 +20,26 @@ col = as.data.frame( data %>%
                              Average_rating = round(mean(Rating),2)
                              
                          )) %>% distinct()
-
+y = colnames(col)[2:4]
+names(y) = c("Jobs","Average Salary","Average Rating")
 
 ui <- fluidPage(
     
     # Application title
-    titlePanel("Breaking Values Down by State"),
+    titlePanel("The United States mapped by Data Science Jobs"),
     
     # Sidebar with a slider input for number of bins 
     sidebarLayout(
         sidebarPanel(
             selectInput("vars",
                         "Select a metric",
-                        colnames(col)[2:4]
+                        choices = y 
             ),
             h3("Variable Definitions"),
             h5("Jobs: Number of jobs listed for hiring"),
-            h5("Average_salary: Average salary for those listed jobs"),
-            h5("Average_rating: Average Company rating for a state"),
-            h4("\n\nNote: States that are grey are missing data.")
+            h5("Average Salary: Average salary for those listed jobs"),
+            h5("Average Rating: Average Company rating for a state"),
+            h5("\n\nNote: States that are grey are missing data.")
         ),
         
         
@@ -53,12 +54,13 @@ ui <- fluidPage(
 
 server <- function(input, output) {
     output$map <- renderPlotly({
-        g = plot_usmap(data = col,values = input$vars, color = "dark green") +
+        ix = which(y == input$vars)
+        g = plot_usmap(data = col,values = input$vars, size = 0.05) +
             scale_fill_continuous(
-                low = "white", high = "dark green", name = input$vars,
+                low = "white", high = "dark green", name = names(y)[ix],
                 label = scales::comma
             )+
-            theme(legend.position = "right")
+            theme(legend.position = "right") 
         ggplotly(g) %>%
             style(hoveron = "fill")
     })
