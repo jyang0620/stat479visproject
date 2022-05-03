@@ -16,8 +16,8 @@ col = as.data.frame( data %>%
                        group_by(state) %>% 
                        summarise(
                          Jobs = Freq,
-                         avg_salary = round(mean(`Avg Salary(K)`),3)*1000,
-                         avg_rating = round(mean(Rating),2)
+                         `Average Salary` = round(mean(`Avg Salary(K)`),3)*1000,
+                         `Average Rating` = round(mean(Rating),2)
                          
                        )) %>% distinct()
 # Define UI for application that draws a histogram
