@@ -1,6 +1,7 @@
 library(scales)
 library(readr)
 library(ggplot2)
+library(ggthemes)
 library(sf)
 library(usmap)
 library(tidyverse)
@@ -11,17 +12,10 @@ library(forcats)
 library(lubridate)
 library(plotly)
 library(shiny)
-
-# psuedocode:
-# ui = navbarPage("Multiple Shiny Apps on One Web Page",
-#                   tabPanel("shiny app 1", call(path to shiny app1) ),
-#                   tabPanel("shiny app 2", call(path to shiny app2) ),
-#                   tabPanel("shiny app 3", call(path to shiny app3) ))
-# server = 
-
+library(shinythemes)
 library(bslib)
 
-# 1st visualization
+# First visualization
 datasaljustin = read_csv("justindatasal.csv")
 
 scatterplot = function(df) {
@@ -67,6 +61,30 @@ text <- function(){
   )
 }
 
+#Second Visualization
+datasalyuning = read_csv("yuningatasal.csv")
+
+industry <- pull(datasalyuning, Industry) %>%
+  unique() %>%
+  na.omit()
+
+box <- function(df){    
+  ggplot(data = df %>% filter(selected)) +
+    geom_boxplot(aes(x = Avg.Salary.K, 
+                     y = fct_reorder(Industry, Avg.Salary.K, median),
+                     fill = "gray69", alpha=0.2)) + 
+    # facet_wrap(~Sector) +#suggestion: reorder box plots
+    theme(legend.position="none",
+          axis.text.y = element_text(size = 14),
+          axis.text.x = element_text(size = 14),
+          axis.title = element_text(size = 16),
+          plot.title = element_text(size = 18)) +
+    # scale_fill_brewer(palette = "Spectral")+
+    labs(title= "Average Salaries vs Industry", 
+         x= "Average Salary in Thousands",
+         y= "Industry")
+}
+
 #Third Visualization
 datasaldavid = read_csv("daviddatasal.csv")
 y = colnames(datasaldavid)[3:5]
@@ -75,7 +93,10 @@ names(y) = c("Jobs","Average Salary","Average Rating")
 
 
 ui <- fluidPage(
+    theme= shinytheme("united"),
+    
     mainPanel(
+      "Data Science Salaries", 
       tabsetPanel(
         tabPanel(
           "Introduction", 
@@ -89,6 +110,15 @@ ui <- fluidPage(
         ),
         tabPanel(
           "Second Visualization", 
+          titlePanel(h1("Average Salaries for Data Science Jobs", align = "center")),
+          sidebarLayout(
+            sidebarPanel(selectInput("industry", 
+                                     "Industry", 
+                                     industry, 
+                                     selected = industry[1:5],
+                                     multiple = TRUE)),
+            mainPanel(plotOutput("boxplot"))
+          )
         ),
         tabPanel(
           "Third Visualization", 
@@ -128,6 +158,14 @@ server <- function(input, output) {
   output$state_scatter <- renderPlotly({
     scatterplot(datasaljustin)
   })
+  
+  df_subset <- reactive({
+    datasalyuning %>% mutate(
+      selected = (
+        (Industry %in% input$industry)
+      ))
+  })
+  output$boxplot = renderPlot(box(df_subset()), height= 1200, width = 800)
   
   output$map <- renderPlotly({
     ix = which(y == input$vars)

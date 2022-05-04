@@ -1,7 +1,6 @@
 library(tidyverse)
 library(naniar)
 library(RColorBrewer)
-theme_set(theme_bw(16))
 
 ds_salfix <- read_csv("DSsalary.csv")
 
@@ -29,15 +28,17 @@ small_samples <- ds_salfix %>%
 ds_salfix <- ds_salfix %>% 
     mutate(Industry = replace(Industry, Industry %in% small_samples, "Other"))
 
+industry <- pull(ds_salfix, Industry) %>%
+  unique() %>%
+  na.omit()
 
 # Boxplot
 box <- function(df){    
     ggplot(data = df %>% filter(selected)) +
         geom_boxplot(aes(x = Avg.Salary.K, 
-                         y = fct_reorder(Industry, Avg.Salary.K, median)
-                         # fill = Industry
-                         )) + 
-        facet_wrap(~Sector) +#suggestion: reorder box plots
+                         y = fct_reorder(Industry, Avg.Salary.K, median),
+                         fill = "gray69", alpha=0.2)) + 
+        # facet_wrap(~Sector) +#suggestion: reorder box plots
         theme(legend.position="none",
               axis.text.y = element_text(size = 14),
               axis.text.x = element_text(size = 14),
@@ -51,7 +52,11 @@ box <- function(df){
 ui <- fluidPage(
     titlePanel(h1("Average Salaries for Data Science Jobs", align = "center")),
     sidebarLayout(
-        sidebarPanel(selectInput("industry", "Industry", industry, multiple = TRUE)),
+        sidebarPanel(selectInput("industry", 
+                                 "Industry", 
+                                 industry, 
+                                 selected = industry[1:5],
+                                 multiple = TRUE)),
         mainPanel(plotOutput("boxplot"))
     )
 )

@@ -45,6 +45,37 @@ datasal2 = data.frame(datasal)[,1:16]
 write.csv(datasal2, file="justindatasal.csv", row.names = FALSE)
 
 # Visualization 2
+library(tidyverse)
+library(naniar)
+library(RColorBrewer)
+
+ds_salfix <- read_csv("DSsalary.csv")
+
+
+ds_salfix <- ds_salfix %>% 
+  rename(Avg.Salary.K = 'Avg Salary(K)',
+         Job.Title = 'Job Title') %>% # Suggestion: Trim names of job titles (1st 10 characters or manually)
+  mutate(Avg.Salary.K = as.numeric(Avg.Salary.K)) %>% 
+  replace_with_na_all(condition = ~.x == -1)
+
+industry <- pull(ds_salfix, Industry) %>%
+  unique() %>%
+  na.omit()
+
+industry <- sort(industry)
+
+small_samples <- ds_salfix %>% 
+  group_by(Industry) %>% 
+  summarize(n = n()) %>% 
+  arrange(n) %>% 
+  filter(n<= 5) %>% 
+  pull(Industry)
+
+
+ds_salfix <- ds_salfix %>% 
+  mutate(Industry = replace(Industry, Industry %in% small_samples, "Other"))
+
+write.csv(ds_salfix, file="yuningatasal.csv")
 
 # Visualization 3
 
