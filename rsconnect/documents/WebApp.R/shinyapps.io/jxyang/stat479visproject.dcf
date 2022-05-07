@@ -5,10 +5,10 @@ account: jxyang
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 6187500
-bundleId: 5870283
+bundleId: 5874245
 url: https://jxyang.shinyapps.io/stat479visproject/
-when: 1651684978.98731
-lastSyncTime: 1651684978.98733
+when: 1651772087.11891
+lastSyncTime: 1651772087.11893
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: .Rapp.history|app.R|chart1.png|chart2.png|chart3.png|COL_map.png|Data cleaning and examination.R|Data cleaning.R|DSsalary.csv|GetSeparateData.R|Group19Milestone3.tar|mapApp.R|milestone_2_visual.R|milestone3.pdf|milestone3.Rmd|portfolio2turnin.pdf|portfolio2turnin.Rmd|project_map.Rmd|ShinyAppSalvCOL.R|updatedMapApp.R|vis1.png|vis2.png
+ignoredFiles: .Rapp.history|app.R|chart1.png|chart2.png|chart3.png|COL_map.png|Data cleaning and examination.R|Data cleaning.R|DSsalary.csv|GetSeparateData.R|Group19Milestone3.tar|JobMap.png|mapApp.R|milestone_2_visual.R|milestone3.pdf|milestone3.Rmd|portfolio2turnin.pdf|portfolio2turnin.Rmd|project_map.Rmd|References.png|ShinyAppSalvCOL.R|updatedMapApp.R|vis1.png|vis2.png
