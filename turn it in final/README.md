@@ -4,7 +4,7 @@
 
 ## Introduction:
 
-According to the US Department of Labor Statistics, as of May 2021, the current average salary of a data scientist is $108,860, indicating a monetarily successful profession. In order to understand, a set of questions were developed, pertaining to which states have the highest paying jobs, what is the most optimal job in terms of net earnings and which industries and/or sectors have the highest paying jobs. The aim of this project is to visualize the state of this profession, providing aid in the decision making process for students thinking about becoming data scientists and the current data scientists searching for the optimal position. To access the full project, scan the QR code in the top right.
+According to the US Department of Labor Statistics, as of May 2021, the current average salary of a data scientist is $108,860, indicating a monetarily successful profession. In order to understand, a set of questions were developed, pertaining to which states have the highest paying jobs, what is the most optimal job in terms of net earnings and which industries and/or sectors have the highest paying jobs. The aim of this project is to visualize the state of this profession, providing aid in the decision making process for students thinking about becoming data scientists and the current data scientists searching for the optimal position. 
 
 ## Data:
 Here is the link to the kaggle dataset we used for Data Science Salary: https://www.kaggle.com/datasets/nikhilbhathi/data-scientist-salary-us-glassdoor
