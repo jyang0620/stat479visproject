@@ -25,5 +25,5 @@ You can clone this GitHub repo by running "git clone https://github.com/jyang062
   - You can also access our project at https://jxyang.shinyapps.io/stat479visproject/
 
 # Report
-Our report can be found in the App in their respective sessions or to get the text sans the plots in Project Milestone 4.pdf
+Our report can be found in the App in their respective sessions or to get the text sans the plots in final-report.pdf
 
