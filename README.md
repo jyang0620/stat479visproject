@@ -1,4 +1,4 @@
-# STAT 479 Group Project
+# Visualizing Data Scientist Salaries
 
 ## Group Members: Yuning Wu (ywu483@wisc.edu), Justin Yang (jxyang@wisc.edu), David Young (dfyoung2@wisc.edu)
 
